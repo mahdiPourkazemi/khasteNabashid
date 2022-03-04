@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph.xml"
+    app:startDestination="@id/signupFragment">
+
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="ir.mohsenafshar.apps.mkbarchitecture.ui.signup.SignupFragment"
+        android:label="SignupFragment" >
+        <action
+            android:id="@+id/action_signupFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="ir.mohsenafshar.apps.mkbarchitecture.ui.users.UserFragment"
+        android:label="UserFragment" />
+</navigation>

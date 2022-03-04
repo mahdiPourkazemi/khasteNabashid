@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/home_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="family">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/home_family"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="national code">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/home_national_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/checkbox_movie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Movie"/>
+
+    <CheckBox
+        android:id="@+id/checkbox_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Game"/>
+
+    <CheckBox
+        android:id="@+id/checkbox_sport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sport"/>
+
+    <Button
+        android:id="@+id/home_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Account"/>
+
+    <Button
+        android:id="@+id/get_list_users"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="getUsers" />
+
+</LinearLayout>
