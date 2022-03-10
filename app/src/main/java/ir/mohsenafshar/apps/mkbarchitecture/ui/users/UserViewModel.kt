@@ -4,13 +4,15 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ir.mohsenafshar.apps.mkbarchitecture.data.NetworkCallback
+import ir.mohsenafshar.apps.mkbarchitecture.data.UserRepository
 import ir.mohsenafshar.apps.mkbarchitecture.data.model.UserResponse
-import ir.mohsenafshar.apps.mkbarchitecture.data.network.NetworkManager
+import ir.mohsenafshar.apps.mkbarchitecture.data.remote.network.RetrofitApiProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserViewModel : ViewModel() {
+class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     private val _listUser = MutableLiveData<List<String>>()
     val listUsers: LiveData<List<String>> = _listUser
@@ -18,22 +20,12 @@ class UserViewModel : ViewModel() {
     private val _searchResult = MutableLiveData<List<String>>()
     val searchResult: LiveData<List<String>> = _searchResult
 
-    fun getUsersFromServer() {
-        NetworkManager.userApi.getUser().enqueue(object : Callback<List<UserResponse>> {
-            override fun onResponse(call: Call<List<UserResponse>>, response: Response<List<UserResponse>>) {
-                _listUser.postValue(response.body()?.map { user ->
-                    "${user.firstName} ${user.lastName}"
-                })
-            }
-
-            override fun onFailure(call: Call<List<UserResponse>>, t: Throwable) {
-                Log.d("TAG", t.message.toString())
-            }
-        })
+    fun getUsers(): LiveData<List<UserResponse>> {
+        return userRepository.getUserList()
     }
 
     private fun searchFromUsers(query: HashMap<String, String>) {
-        NetworkManager.userApi.getUser(query).enqueue(object : Callback<List<UserResponse>?> {
+        RetrofitApiProvider.userApi.getUserList(query).enqueue(object : Callback<List<UserResponse>?> {
             override fun onResponse(call: Call<List<UserResponse>?>, response: Response<List<UserResponse>?>) {
                 _searchResult.postValue(response.body()?.map {
                     it.firstName

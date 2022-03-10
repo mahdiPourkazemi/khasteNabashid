@@ -1,4 +1,4 @@
-package ir.mohsenafshar.apps.mkbarchitecture.data.network
+package ir.mohsenafshar.apps.mkbarchitecture.data.remote.network
 
 import ir.mohsenafshar.apps.mkbarchitecture.data.model.UserReqBody
 import ir.mohsenafshar.apps.mkbarchitecture.data.model.UserResponse
@@ -9,7 +9,7 @@ import retrofit2.http.*
 interface UserApi {
 
     @GET("users")
-    fun getUser(@QueryMap users: HashMap<String, String> = hashMapOf()): Call<List<UserResponse>>
+    fun getUserList(@QueryMap filters: HashMap<String, String> = hashMapOf()): Call<List<UserResponse>>
 
     @POST("users")
     fun createUser(

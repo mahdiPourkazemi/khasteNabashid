@@ -1,4 +1,4 @@
-package ir.mohsenafshar.apps.mkbarchitecture.data.network
+package ir.mohsenafshar.apps.mkbarchitecture.data.remote.network
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -6,7 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object NetworkManager {
+object RetrofitApiProvider {
     private val interceptor = Interceptor { chain ->
         val oldRequest = chain.request()
         val newRequest = oldRequest.newBuilder()

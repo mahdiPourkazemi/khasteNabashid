@@ -8,11 +8,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import ir.mohsenafshar.apps.mkbarchitecture.R
 import ir.mohsenafshar.apps.mkbarchitecture.databinding.FragmentUserBinding
+import ir.mohsenafshar.apps.mkbarchitecture.ui.CustomViewModelFactory
 
 class UserFragment : Fragment(R.layout.fragment_user) {
 
     private lateinit var binding: FragmentUserBinding
-    private val viewModel: UserViewModel by viewModels()
+    private val viewModel: UserViewModel by viewModels(factoryProducer = {
+        CustomViewModelFactory(/*TODO: ServiceLocator.getUserRepository()*/)
+    })
 
     private var listUsers = mutableListOf<String>()
     private var search = mutableListOf<String>()
@@ -23,14 +26,36 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentUserBinding.bind(view)
 
+        initViews()
+        initClickListeners()
+
+        viewModel.getUsers().observe(viewLifecycleOwner, Observer {
+            listUsers.clear()
+            listUsers.addAll(it.map { it.firstName + " " + it.lastName })
+            recyclerAdapter.notifyItemRangeInserted(0, it.size)
+        })
+
+//        initObserving()
+//        getUserData()
+    }
+
+    private fun getUserData() {
+        viewModel.getUsers()
+    }
+
+    private fun initViews() {
         recyclerAdapter = RecyclerAdapter(listUsers)
         binding.rc.layoutManager = LinearLayoutManager(requireContext())
         binding.rc.adapter = recyclerAdapter
+    }
 
+    private fun initClickListeners() {
         binding.btsearch.setOnClickListener {
             viewModel.getUserFromFirstName(binding.edsearch.text.toString())
         }
+    }
 
+    private fun initObserving() {
         viewModel.listUsers.observe(viewLifecycleOwner) {
             listUsers.clear()
             listUsers.addAll(it)
@@ -42,7 +67,5 @@ class UserFragment : Fragment(R.layout.fragment_user) {
             listUsers.addAll(it)
             recyclerAdapter.notifyItemRangeInserted(0, it.size)
         }
-
-        viewModel.getUsersFromServer()
     }
 }

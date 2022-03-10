@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ir.mohsenafshar.apps.mkbarchitecture.data.model.UserReqBody
-import ir.mohsenafshar.apps.mkbarchitecture.data.network.NetworkManager
+import ir.mohsenafshar.apps.mkbarchitecture.data.remote.network.RetrofitApiProvider
 import retrofit2.Call
 import retrofit2.Response
 
@@ -16,7 +16,7 @@ class ViewModelHome : ViewModel() {
     val userId: LiveData<String> = _userId
 
     fun createUser(user: UserReqBody) {
-        val call = NetworkManager.userApi.createUser(user)
+        val call = RetrofitApiProvider.userApi.createUser(user)
         call.enqueue(object : retrofit2.Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 val id = response.body()
