@@ -7,4 +7,5 @@ interface DataSource {
     fun getUserList(): List<User>
     fun saveUserList(users: List<User>)
     fun saveHobieList(hobbies:List<Hobie>)
+    fun getAllUserWithHobbies():Map<User,List<Hobie>>
 }

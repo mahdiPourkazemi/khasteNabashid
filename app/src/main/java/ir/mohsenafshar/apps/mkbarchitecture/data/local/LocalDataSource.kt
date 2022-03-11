@@ -19,4 +19,10 @@ class LocalDataSource(private val userDao: UserDao,private val hobieDao: HobieDa
     override fun saveHobieList(hobbies: List<Hobie>) {
        hobieDao.insert(*hobbies.toTypedArray())
     }
+
+    override fun getAllUserWithHobbies(): Map<User, List<Hobie>> {
+        return userDao.getAllUserWithHobbies()
+    }
+
+
 }

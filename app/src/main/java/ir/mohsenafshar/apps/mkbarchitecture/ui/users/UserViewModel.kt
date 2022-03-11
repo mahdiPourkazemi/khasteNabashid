@@ -17,6 +17,8 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     private val _listUser = MutableLiveData<List<String>>()
     val listUsers: LiveData<List<String>> = _listUser
+    private val _userWithHobbiesLiveData = MutableLiveData<List<UserResponse>>()
+    val userWithHobbiesLiveData: LiveData<List<UserResponse>> = _userWithHobbiesLiveData
 
     private val _searchResult = MutableLiveData<List<String>>()
     val searchResult: LiveData<List<String>> = _searchResult
@@ -24,30 +26,40 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun getUsers(): LiveData<List<User>> {
         return userRepository.getUserList()
     }
-    fun saveHobie(hobieList:List<Hobie>){
+
+    fun saveHobie(hobieList: List<Hobie>) {
         userRepository.saveHobieList(hobieList)
     }
-    fun saveUserList(userList:List<User>){
+
+    fun saveUserList(userList: List<User>) {
         userRepository.saveUserList(userList)
     }
 
     private fun searchFromUsers(query: HashMap<String, String>) {
-        RetrofitApiProvider.userApi.getUserList(query).enqueue(object : Callback<List<UserResponse>?> {
-            override fun onResponse(call: Call<List<UserResponse>?>, response: Response<List<UserResponse>?>) {
-                _searchResult.postValue(response.body()?.map {
-                    it.firstName
-                })
-            }
+        RetrofitApiProvider.userApi.getUserList(query)
+            .enqueue(object : Callback<List<UserResponse>?> {
+                override fun onResponse(
+                    call: Call<List<UserResponse>?>,
+                    response: Response<List<UserResponse>?>
+                ) {
+                    _searchResult.postValue(response.body()?.map {
+                        it.firstName
+                    })
+                }
 
-            override fun onFailure(call: Call<List<UserResponse>?>, t: Throwable) {
-                Log.d("TAG", "searchResult:" + t.message.toString())
-            }
-        })
+                override fun onFailure(call: Call<List<UserResponse>?>, t: Throwable) {
+                    Log.d("TAG", "searchResult:" + t.message.toString())
+                }
+            })
     }
 
     fun getUserFromFirstName(firstname: String) {
         if (firstname.isNotBlank()) {
             searchFromUsers(hashMapOf("firstName" to firstname))
         }
+    }
+
+    fun getAllUserWithHobbies():LiveData<List<UserResponse>> {
+        return userRepository.getAllUserWithHobbies()
     }
 }

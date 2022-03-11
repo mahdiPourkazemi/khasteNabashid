@@ -18,6 +18,17 @@ object Mapper {
         return userResponse.hobbies?.map {
             Hobie(Random.nextInt(),it,userResponse._id)
         }?: emptyList()
+    }
 
+    fun transformToUserResponse(user:User, hobbies: List<Hobie>): UserResponse {
+        return UserResponse(
+            _id = user.id,
+            firstName = user.firstName,
+            lastName = user.lastName,
+            nationalCode = user.nationalCode,
+            hobbies.map {
+                it.name
+            }
+        )
     }
 }

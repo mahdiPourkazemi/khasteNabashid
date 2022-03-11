@@ -1,6 +1,7 @@
 package ir.mohsenafshar.apps.mkbarchitecture.ui.users
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -33,11 +34,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         initViews()
         initClickListeners()
 
-        viewModel.getUsers().observe(viewLifecycleOwner, Observer {
-            listUsers.clear()
-            listUsers.addAll(it.map { it.firstName + " " + it.lastName })
-            recyclerAdapter.notifyItemRangeInserted(0, it.size)
-        })
+
         val listUserResponse: List<UserResponse> = readFromAsset(requireContext())
         val userList = listUserResponse.map {
             Mapper.transformToUser(it)
@@ -49,6 +46,14 @@ class UserFragment : Fragment(R.layout.fragment_user) {
         viewModel.saveHobie(hobieList)
 //        initObserving()
 //        getUserData()
+
+        getUserWithHobbies()
+    }
+
+    private fun getUserWithHobbies() {
+        viewModel.getAllUserWithHobbies().observe(viewLifecycleOwner){
+            Log.d("HOBBIES", it.toString())
+        }
     }
 
 

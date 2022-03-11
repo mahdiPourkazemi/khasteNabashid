@@ -23,4 +23,8 @@ class RemoteDataSource(private val userApi: UserApi): DataSource {
     override fun saveHobieList(hobbies: List<Hobie>) {
       //do nothing
     }
+
+    override fun getAllUserWithHobbies(): Map<User, List<Hobie>> {
+        return mapOf()
+    }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ir.mohsenafshar.apps.mkbarchitecture.data.model.Hobie
 import ir.mohsenafshar.apps.mkbarchitecture.data.model.User
+import ir.mohsenafshar.apps.mkbarchitecture.data.remote.model.UserResponse
 import java.util.concurrent.ExecutorService
 
 class UserRepository(
@@ -36,6 +37,21 @@ fun saveUserList(userList: List<User>){
             liveData.postValue(remoteData)
         }
 
+        return liveData
+    }
+
+    fun getAllUserWithHobbies():LiveData<List<UserResponse>>{
+        val liveData = MutableLiveData<List<UserResponse>>(listOf())
+
+        executorService.submit{
+            val map = localDataSource.getAllUserWithHobbies()
+            val mutableList = mutableListOf<UserResponse>()
+            for ((key,value) in map){
+                mutableList.add(Mapper.transformToUserResponse(key, value))
+            }
+            liveData.postValue(mutableList)
+
+        }
         return liveData
     }
 
