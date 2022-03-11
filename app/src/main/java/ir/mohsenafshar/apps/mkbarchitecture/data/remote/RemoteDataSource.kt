@@ -1,5 +1,7 @@
 package ir.mohsenafshar.apps.mkbarchitecture.data.remote
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import ir.mohsenafshar.apps.mkbarchitecture.data.DataSource
 import ir.mohsenafshar.apps.mkbarchitecture.data.Mapper
 import ir.mohsenafshar.apps.mkbarchitecture.data.model.Hobie
@@ -24,7 +26,7 @@ class RemoteDataSource(private val userApi: UserApi): DataSource {
       //do nothing
     }
 
-    override fun getAllUserWithHobbies(): Map<User, List<Hobie>> {
-        return mapOf()
+    override fun getAllUserWithHobbies(): LiveData<Map<User, List<Hobie>>> {
+        return MutableLiveData(mapOf())
     }
 }

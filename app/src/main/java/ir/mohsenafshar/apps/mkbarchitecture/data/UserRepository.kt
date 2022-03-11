@@ -2,6 +2,7 @@ package ir.mohsenafshar.apps.mkbarchitecture.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import ir.mohsenafshar.apps.mkbarchitecture.data.model.Hobie
 import ir.mohsenafshar.apps.mkbarchitecture.data.model.User
 import ir.mohsenafshar.apps.mkbarchitecture.data.remote.model.UserResponse
@@ -17,17 +18,19 @@ class UserRepository(
         const val TAG = "Repository"
     }
 
-    fun saveHobieList(hobieList:List<Hobie>) {
+    fun saveHobieList(hobieList: List<Hobie>) {
         executorService.submit {
             localDataSource.saveHobieList(hobieList)
         }
     }
-fun saveUserList(userList: List<User>){
-    executorService.submit {
-        localDataSource.saveUserList(userList)
+
+    fun saveUserList(userList: List<User>) {
+        executorService.submit {
+            localDataSource.saveUserList(userList)
+        }
+
     }
 
-}
     fun getUserList(): LiveData<List<User>> {
         val liveData = MutableLiveData<List<User>>()
 
@@ -40,19 +43,16 @@ fun saveUserList(userList: List<User>){
         return liveData
     }
 
-    fun getAllUserWithHobbies():LiveData<List<UserResponse>>{
-        val liveData = MutableLiveData<List<UserResponse>>(listOf())
+    fun getAllUserWithHobbies(): LiveData<List<UserResponse>> {
 
-        executorService.submit{
-            val map = localDataSource.getAllUserWithHobbies()
-            val mutableList = mutableListOf<UserResponse>()
-            for ((key,value) in map){
-                mutableList.add(Mapper.transformToUserResponse(key, value))
+        val mapLiveData = localDataSource.getAllUserWithHobbies()
+        return mapLiveData.map {
+            val temp = mutableListOf<UserResponse>()
+            for ((key, value ) in it){
+                temp.add(Mapper.transformToUserResponse(key,value))
             }
-            liveData.postValue(mutableList)
-
+            temp
         }
-        return liveData
     }
 
 }

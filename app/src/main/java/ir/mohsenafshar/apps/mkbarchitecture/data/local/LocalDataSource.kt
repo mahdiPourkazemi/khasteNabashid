@@ -1,5 +1,6 @@
 package ir.mohsenafshar.apps.mkbarchitecture.data.local
 
+import androidx.lifecycle.LiveData
 import ir.mohsenafshar.apps.mkbarchitecture.data.DataSource
 import ir.mohsenafshar.apps.mkbarchitecture.data.local.db.HobieDao
 import ir.mohsenafshar.apps.mkbarchitecture.data.local.db.UserDao
@@ -20,7 +21,7 @@ class LocalDataSource(private val userDao: UserDao,private val hobieDao: HobieDa
        hobieDao.insert(*hobbies.toTypedArray())
     }
 
-    override fun getAllUserWithHobbies(): Map<User, List<Hobie>> {
+    override fun getAllUserWithHobbies(): LiveData<Map<User, List<Hobie>>> {
         return userDao.getAllUserWithHobbies()
     }
 

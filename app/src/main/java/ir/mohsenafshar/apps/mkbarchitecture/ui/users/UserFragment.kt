@@ -33,6 +33,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
 
         initViews()
         initClickListeners()
+        getUserWithHobbies()
 
 
         val listUserResponse: List<UserResponse> = readFromAsset(requireContext())
@@ -47,7 +48,7 @@ class UserFragment : Fragment(R.layout.fragment_user) {
 //        initObserving()
 //        getUserData()
 
-        getUserWithHobbies()
+
     }
 
     private fun getUserWithHobbies() {
