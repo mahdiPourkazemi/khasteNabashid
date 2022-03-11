@@ -1,7 +1,7 @@
 package ir.mohsenafshar.apps.mkbarchitecture.data.remote.network
 
-import ir.mohsenafshar.apps.mkbarchitecture.data.model.UserReqBody
-import ir.mohsenafshar.apps.mkbarchitecture.data.model.UserResponse
+import ir.mohsenafshar.apps.mkbarchitecture.data.remote.model.UserReqBody
+import ir.mohsenafshar.apps.mkbarchitecture.data.remote.model.UserResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*

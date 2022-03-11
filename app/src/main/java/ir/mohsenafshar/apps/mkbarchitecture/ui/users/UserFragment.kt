@@ -6,15 +6,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import ir.mohsenafshar.apps.mkbarchitecture.App
 import ir.mohsenafshar.apps.mkbarchitecture.R
 import ir.mohsenafshar.apps.mkbarchitecture.databinding.FragmentUserBinding
+import ir.mohsenafshar.apps.mkbarchitecture.di.ServiceLocator
 import ir.mohsenafshar.apps.mkbarchitecture.ui.CustomViewModelFactory
 
 class UserFragment : Fragment(R.layout.fragment_user) {
 
     private lateinit var binding: FragmentUserBinding
     private val viewModel: UserViewModel by viewModels(factoryProducer = {
-        CustomViewModelFactory(/*TODO: ServiceLocator.getUserRepository()*/)
+        CustomViewModelFactory((requireActivity().application as App).serviceLocator.userRepository)
     })
 
     private var listUsers = mutableListOf<String>()

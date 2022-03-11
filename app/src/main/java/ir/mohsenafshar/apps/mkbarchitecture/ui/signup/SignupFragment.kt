@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ir.mohsenafshar.apps.mkbarchitecture.R
-import ir.mohsenafshar.apps.mkbarchitecture.data.model.UserReqBody
+import ir.mohsenafshar.apps.mkbarchitecture.data.remote.model.UserReqBody
 import ir.mohsenafshar.apps.mkbarchitecture.databinding.FragmentSignupBinding
 
 class SignupFragment : Fragment(R.layout.fragment_signup) {

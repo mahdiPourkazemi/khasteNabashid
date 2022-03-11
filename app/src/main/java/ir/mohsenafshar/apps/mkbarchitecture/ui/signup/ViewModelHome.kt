@@ -3,7 +3,7 @@ package ir.mohsenafshar.apps.mkbarchitecture.ui.signup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ir.mohsenafshar.apps.mkbarchitecture.data.model.UserReqBody
+import ir.mohsenafshar.apps.mkbarchitecture.data.remote.model.UserReqBody
 import ir.mohsenafshar.apps.mkbarchitecture.data.remote.network.RetrofitApiProvider
 import retrofit2.Call
 import retrofit2.Response

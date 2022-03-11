@@ -1,4 +1,4 @@
-package ir.mohsenafshar.apps.mkbarchitecture.data.model
+package ir.mohsenafshar.apps.mkbarchitecture.data.remote.model
 
 data class UserReqBody(
     val firstName: String,

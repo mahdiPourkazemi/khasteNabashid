@@ -1,29 +1,29 @@
 package ir.mohsenafshar.apps.mkbarchitecture.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ir.mohsenafshar.apps.mkbarchitecture.data.model.UserResponse
+import ir.mohsenafshar.apps.mkbarchitecture.data.model.User
+import java.util.concurrent.ExecutorService
 
-class UserRepository(private val remoteDataSource: DataSource) {
+class UserRepository(
+    private val executorService: ExecutorService,
+    private val remoteDataSource: DataSource,
+    private val localDataSource: DataSource
+) {
 
     companion object {
         const val TAG = "Repository"
     }
 
-    fun getUserList(): LiveData<List<UserResponse>>{
-        val liveData = MutableLiveData<List<UserResponse>>()
+    fun getUserList(): LiveData<List<User>> {
+        val liveData = MutableLiveData<List<User>>()
 
-        val cb = object : NetworkCallback<List<UserResponse>> {
-            override fun onResponse(data: List<UserResponse>) {
-                liveData.postValue(data)
-            }
-
-            override fun onFailure(t: Throwable) {
-                Log.d(TAG, t.message.toString())
-            }
+        executorService.submit {
+            val remoteData: List<User> = remoteDataSource.getUserList()
+            localDataSource.saveUserList(remoteData)
+            liveData.postValue(remoteData)
         }
-        remoteDataSource.getUserList(cb)
+
         return liveData
     }
 

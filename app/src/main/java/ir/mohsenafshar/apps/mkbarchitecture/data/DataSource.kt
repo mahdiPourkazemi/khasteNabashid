@@ -1,7 +1,8 @@
 package ir.mohsenafshar.apps.mkbarchitecture.data
 
-import ir.mohsenafshar.apps.mkbarchitecture.data.model.UserResponse
+import ir.mohsenafshar.apps.mkbarchitecture.data.model.User
 
 interface DataSource {
-    fun getUserList(cb: NetworkCallback<List<UserResponse>>)
+    fun getUserList(): List<User>
+    fun saveUserList(users: List<User>)
 }

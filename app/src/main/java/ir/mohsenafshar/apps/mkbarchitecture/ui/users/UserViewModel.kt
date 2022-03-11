@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ir.mohsenafshar.apps.mkbarchitecture.data.NetworkCallback
 import ir.mohsenafshar.apps.mkbarchitecture.data.UserRepository
-import ir.mohsenafshar.apps.mkbarchitecture.data.model.UserResponse
+import ir.mohsenafshar.apps.mkbarchitecture.data.model.User
+import ir.mohsenafshar.apps.mkbarchitecture.data.remote.model.UserResponse
 import ir.mohsenafshar.apps.mkbarchitecture.data.remote.network.RetrofitApiProvider
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +20,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _searchResult = MutableLiveData<List<String>>()
     val searchResult: LiveData<List<String>> = _searchResult
 
-    fun getUsers(): LiveData<List<UserResponse>> {
+    fun getUsers(): LiveData<List<User>> {
         return userRepository.getUserList()
     }
 
