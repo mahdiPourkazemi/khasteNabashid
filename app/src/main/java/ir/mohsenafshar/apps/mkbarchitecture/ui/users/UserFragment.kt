@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import ir.mohsenafshar.apps.mkbarchitecture.App
 import ir.mohsenafshar.apps.mkbarchitecture.R
+import ir.mohsenafshar.apps.mkbarchitecture.data.Mapper
+import ir.mohsenafshar.apps.mkbarchitecture.data.remote.model.UserResponse
 import ir.mohsenafshar.apps.mkbarchitecture.databinding.FragmentUserBinding
 import ir.mohsenafshar.apps.mkbarchitecture.di.ServiceLocator
 import ir.mohsenafshar.apps.mkbarchitecture.ui.CustomViewModelFactory
@@ -36,10 +38,19 @@ class UserFragment : Fragment(R.layout.fragment_user) {
             listUsers.addAll(it.map { it.firstName + " " + it.lastName })
             recyclerAdapter.notifyItemRangeInserted(0, it.size)
         })
-
+        val listUserResponse: List<UserResponse> = readFromAsset(requireContext())
+        val userList = listUserResponse.map {
+            Mapper.transformToUser(it)
+        }
+        viewModel.saveUserList(userList)
+       val hobieList = listUserResponse.flatMap {
+           Mapper.transformToHobie(it)
+       }
+        viewModel.saveHobie(hobieList)
 //        initObserving()
 //        getUserData()
     }
+
 
     private fun getUserData() {
         viewModel.getUsers()

@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import ir.mohsenafshar.apps.mkbarchitecture.data.model.Hobie
 import ir.mohsenafshar.apps.mkbarchitecture.data.model.User
 
-@Database(entities = [User::class], version = 1, exportSchema = true)
+@Database(entities = [User::class, Hobie::class], version = 1, exportSchema = true)
 abstract class AppDataBase : RoomDatabase() {
-
+    abstract fun habieDao(): HobieDao
     abstract fun userDao(): UserDao
 
     companion object {

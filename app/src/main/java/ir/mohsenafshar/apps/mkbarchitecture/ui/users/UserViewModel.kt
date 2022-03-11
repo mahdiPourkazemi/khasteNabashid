@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ir.mohsenafshar.apps.mkbarchitecture.data.UserRepository
+import ir.mohsenafshar.apps.mkbarchitecture.data.model.Hobie
 import ir.mohsenafshar.apps.mkbarchitecture.data.model.User
 import ir.mohsenafshar.apps.mkbarchitecture.data.remote.model.UserResponse
 import ir.mohsenafshar.apps.mkbarchitecture.data.remote.network.RetrofitApiProvider
@@ -22,6 +23,12 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     fun getUsers(): LiveData<List<User>> {
         return userRepository.getUserList()
+    }
+    fun saveHobie(hobieList:List<Hobie>){
+        userRepository.saveHobieList(hobieList)
+    }
+    fun saveUserList(userList:List<User>){
+        userRepository.saveUserList(userList)
     }
 
     private fun searchFromUsers(query: HashMap<String, String>) {

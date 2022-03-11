@@ -11,7 +11,8 @@ import java.util.concurrent.Executors
 
 class ServiceLocator(application: Application) {
     private val remoteDataSource = RemoteDataSource(RetrofitApiProvider.userApi)
-    private val localDataSource = LocalDataSource(AppDataBase.getDatabase(application).userDao())
+    private val localDataSource = LocalDataSource(AppDataBase.getDatabase(application).userDao()
+        ,AppDataBase.getDatabase(application).habieDao())
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
     val userRepository = UserRepository(executorService, remoteDataSource, localDataSource)
 }
